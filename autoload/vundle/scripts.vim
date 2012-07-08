@@ -45,7 +45,6 @@ func! s:create_changelog() abort
 
     if (has('win32') || has('win64'))
       let cmd = substitute(cmd, '^cd ','cd /d ','')  " add /d switch to change drives
-      let cmd = '"'.cmd.'"'                          " enclose in quotes
     endif
 
     let updates = system(cmd)
@@ -164,7 +163,6 @@ func! s:fetch_scripts(to)
     let cmd = 'wget -q -O '.temp.' '.l:vim_scripts_json. ' && mv -f '.temp.' '.shellescape(a:to)
     if (has('win32') || has('win64')) 
       let cmd = substitute(cmd, 'mv -f ', 'move /Y ', '') " change force flag
-      let cmd = '"'.cmd.'"'                         " enclose in quotes so && joined cmds work
     end
   else
     echoerr 'Error curl or wget is not available!'
